@@ -1,0 +1,71 @@
+#include<iostream>
+using namespace std;
+struct Node{
+    int data;
+    Node *next;
+    Node(int x){
+        data = x;
+        next=NULL;
+    }
+};
+
+struct MyStack{
+    Node *head;
+    int sz;
+    MyStack(){
+        head=NULL;
+        sz=0;
+    }
+
+    void push(int x){
+        Node *temp = new Node(x);
+        temp->next = head;
+        head = temp;
+        sz++;
+    }
+
+    int pop(){
+        if(head==NULL) return INT_MAX;
+        Node *temp = head;
+        int res = temp->data;
+        head = head->next;
+        delete temp;
+        sz--;
+        return res;
+    }
+
+    int peek(){
+        if(head==NULL) return INT_MAX;
+        return head->data;
+    }
+
+    int size(){
+        return sz;
+    }
+    bool isEmpty(){
+        return head==NULL;
+    }
+
+    void print(){
+        for(Node* curr=head; curr!=NULL; curr=curr->next){
+            cout<<curr->data<<" ";
+        }
+        cout<<endl;
+    }
+};
+
+int main(){
+    MyStack s;
+    s.push(10);
+    s.push(15);
+    s.push(20);
+    s.print();
+    cout<<s.pop()<<endl;
+    cout<<s.pop()<<endl;
+    //cout<<s.pop()<<endl;
+    cout<<s.isEmpty()<<endl;
+    cout<<s.size()<<endl;
+    cout<<s.pop()<<endl;
+    cout<<s.pop()<<endl;
+    cout<<s.isEmpty()<<endl;
+}
